@@ -4,6 +4,10 @@ import Song.FavoriteSong;
 import TypeOfSongs.Music;
 import TypeOfSongs.Podcast;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -31,7 +35,11 @@ public class Main {
 
         FavoriteSong favoriteSong = new FavoriteSong();
 
+        ArrayList<String> buscaPorArtista = new ArrayList<>();
 
+        buscaPorArtista.add("luis");
+        buscaPorArtista.add("teste");
+        Collections.sort(buscaPorArtista);
 
         favoriteSong.addFavoriteSong(music);
         favoriteSong.addFavoriteSong(podcast);
