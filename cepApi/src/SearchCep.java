@@ -12,7 +12,6 @@ public class SearchCep {
 
         URI address = URI.create("https://viacep.com.br/ws/" + cep + "/json/");
 
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(address)
                 .build();
@@ -20,6 +19,7 @@ public class SearchCep {
             HttpResponse<String> response = HttpClient
                     .newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
+
             return new Gson().fromJson(response.body(), Address.class);
         } catch (Exception e) {
             throw new RuntimeException("Invalid zip code!");
