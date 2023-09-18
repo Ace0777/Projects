@@ -9,6 +9,10 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    public Categoria() {
+    }
+
     private String nome;
 
     public Categoria(String nome) {
