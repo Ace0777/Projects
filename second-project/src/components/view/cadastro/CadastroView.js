@@ -1,14 +1,13 @@
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 
 import { TextInput } from 'react-native-paper';
+import { Checkbox } from 'react-native-paper';
+
 
 const CadastroView = ({ navigation }) => {
+
+  const [checked, setChecked] = React.useState(false);
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -51,23 +50,13 @@ const CadastroView = ({ navigation }) => {
           right={<TextInput.Affix text="/100" />}
         />
         <Text>Sexo</Text>
-        <SafeAreaView style={styles.container}>
-          <SegmentedButtons
-            value={value}
-            onValueChange={setValue}
-            buttons={[
-              {
-                value: 'walk',
-                label: 'Walking',
-              },
-              {
-                value: 'train',
-                label: 'Transit',
-              },
-              { value: 'drive', label: 'Driving' },
-            ]}
-          />
-        </SafeAreaView>
+
+        <Checkbox
+          status={checked ? 'checked' : 'unchecked'}
+          onPress={() => {
+            setChecked(!checked);
+          }}
+        />
 
         <Text>SAIR</Text>
       </TouchableOpacity>
