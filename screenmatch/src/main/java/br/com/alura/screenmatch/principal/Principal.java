@@ -3,12 +3,12 @@ package br.com.alura.screenmatch.principal;
 import br.com.alura.screenmatch.model.DadosEpisodio;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
+import br.com.alura.screenmatch.model.Episodio;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Principal {
     private Scanner sc = new Scanner(System.in);
@@ -32,7 +32,7 @@ public class Principal {
 			DadosTemporada dadosTemporada = conversor.obterDados(json,DadosTemporada.class);
 			temporadas.add(dadosTemporada);
 		}
-		temporadas.forEach(System.out::println);
+//		temporadas.forEach(System.out::println);
 
 //        for(int i = 0; i < dados.totalTemporadas(); i++){
 //            List<DadosEpisodio> episodiosTemporada = temporadas.get(i).episodios();
@@ -40,9 +40,52 @@ public class Principal {
 //                System.out.println(episodiosTemporada.get(j).titulo());
 //            }
 //        }
+//
+//
+//        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
+//
+//        List<DadosEpisodio > dadosEpisodios = temporadas.stream()
+//                .flatMap(t -> t.episodios().stream())
+//                .collect(Collectors. toList());
+//
+//        System.out.println("\nTop 5 episodios: ");
+//
+//        dadosEpisodios.stream()
+//                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
+//                .peek( e -> System.out.println("Primeiro Filtro (N/A) "+ e))
+//                .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
+//                .limit(10)
+//                .map(e -> e.titulo().toUpperCase())
+//                .forEach(System.out::println);
+//
+//
+        List<Episodio> episodios = temporadas.stream()
+                .flatMap(t -> t.episodios().stream()
+                        .map(d -> new Episodio(t.Temporada(), d))
+                ).collect(Collectors.toList());
+//
+//        episodios.forEach(System.out::println);
+//
+//        System.out.println("Digite um trecho: ");
+//        var trechoTitulo = sc.nextLine();
+//
+//        Optional<Episodio> episodioBuscado = episodios.stream()
+//                .filter(e -> e.getTitulo().toUpperCase().contains(trechoTitulo.toUpperCase()))
+//                .findFirst();
+//
+//        if(episodioBuscado.isPresent()){
+//            System.out.println("Episiodio encontrado!");
+//            System.out.println("Temporada: " + episodioBuscado.get().getTemporada());
+//        }else {
+//            System.out.println("Episodio não encontrado! ");
+//        }
 
+        Map<Integer, Double> avaliacoesPorTemporada = episodios.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .collect(Collectors.groupingBy(Episodio::getTemporada,
+                        Collectors.averagingDouble(Episodio::getAvaliacao)));
 
-        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
-        
+        System.out.println(avaliacoesPorTemporada);
+
     }
 }
