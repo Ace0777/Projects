@@ -1,6 +1,6 @@
 # Projeto Livraria 
 
-> Neste projeto foquei em conceitos importantes como:
+- Neste projeto foquei em conceitos importantes como:
 
 * Como instalar e utilizar os métodos do framework Express para criação de um servidor HTTP e também para gerenciamento de requisições, respostas e criação de rotas
   
