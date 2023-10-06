@@ -142,7 +142,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"2UeK4":[function(require,module,exports) {
+})({"4H3pI":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -591,8 +591,18 @@ function redirectToGitHub() {
     const authURL = `${GITHUB_URL}?${queryStrings}`;
     window.location.href = authURL;
 }
+async function redirectToGitHubName() {
+    const response = await (0, _axiosDefault.default).get(`${"http://localhost:5000"}/nome`);
+    alert("Nome do usuario: " + response.data.name);
+}
+async function redirectToGitHubRepository() {
+    const response = await (0, _axiosDefault.default).get(`${"http://localhost:5000"}/repositorio`);
+    alert("Numero de repositorios do " + response.data.name + ": " + response.data.public_repos);
+}
 window.onload = async ()=>{
     document.querySelector(".login").addEventListener("click", redirectToGitHub);
+    document.querySelector(".usuario").addEventListener("click", redirectToGitHubName);
+    document.querySelector(".repositorio").addEventListener("click", redirectToGitHubRepository);
     const { code } = (0, _queryStringDefault.default).parseUrl(window.location.href).query;
     if (code) try {
         const response = await (0, _axiosDefault.default).post(`${"http://localhost:5000"}/login`, {
@@ -5489,6 +5499,6 @@ function excludeKeys(object, predicate) {
     return includeKeys(object, (key, value, object)=>!predicate(key, value, object));
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2UeK4","bB7Pu"], "bB7Pu", "parcelRequire8d29")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["4H3pI","bB7Pu"], "bB7Pu", "parcelRequire8d29")
 
 //# sourceMappingURL=index.3d214d75.js.map
